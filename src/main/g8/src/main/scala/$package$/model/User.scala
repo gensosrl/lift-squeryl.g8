@@ -14,6 +14,7 @@ import net.liftmodules.squerylauth._
 import net.liftmodules.squerylauth.field._
 import net.liftmodules.squerylauth.model._
 import net.liftweb.record.MetaRecord
+import net.liftweb.util.Helpers._
 
 class User private () extends ProtoAuthUser[User] {
   def meta = User
@@ -77,6 +78,7 @@ object User extends User with MetaRecord[User] with ProtoAuthUserMeta[User] with
 
   def findByEmail(in: String): Box[User] = find(email.name, in)
   def findByUsername(in: String): Box[User] = find(username.name, in)
+  def find(id: Long): Box[SimpleUser] = UserSchema.users.lookup(id)
 
   def findByStringId(id: String): Box[User] =
     asLong(id) match {
@@ -202,3 +204,8 @@ object SystemUser {
       .save
   }
 }
+
+object UserSchema extends AuthUserSchema[User] {
+  val users: Table[User] = table("users")
+}
+

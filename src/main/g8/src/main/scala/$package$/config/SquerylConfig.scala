@@ -11,6 +11,7 @@ import RecordTypeMode._
 import java.sql.DriverManager
 import net.liftmodules.squerylauth.model.DbSchema
 import org.squeryl.Schema
+import model._
 
 object SquerylConfig extends Factory with Loggable {
 
@@ -36,7 +37,7 @@ object SquerylConfig extends Factory with Loggable {
   }
 
   def init = {
-    initH2(() => DbSchema)    
+    initH2(() => DbSchema, () => UserSchema)    
   }
 }
 
