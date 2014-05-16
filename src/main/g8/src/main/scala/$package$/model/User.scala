@@ -79,8 +79,9 @@ object User extends User with MetaRecord[User] with ProtoAuthUserMeta[User] with
   def findByUsername(in: String): Box[User] = find(username.name, in)
 
   def findByStringId(id: String): Box[User] =
-    if (ObjectId.isValid(id)) find(new ObjectId(id))
-    else Empty
+    asLong(id) match {
+      case Full(i) => find(i)
+      case _ => Empty
 
   override def onLogIn: List[User => Unit] = List(user => User.loginCredentials.remove())
   override def onLogOut: List[Box[User] => Unit] = List(
