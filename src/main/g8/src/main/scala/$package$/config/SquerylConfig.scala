@@ -22,7 +22,14 @@ object SquerylConfig extends Factory with Loggable {
     SquerylRecord.initWithSquerylSession(Session.create(
       DriverManager.getConnection("jdbc:h2:mem:dbname;DB_CLOSE_DELAY=-1", "sa", ""),
       new H2Adapter))    
-    schema.map(s => s().createSchema())
+    inTransaction {
+      try {
+        schema.create
+      } catch {
+        case e: Throwable => e.printStackTrace()
+        throw e;
+      }
+    }
     LiftRules.liftRequest.append({
         case Req("console" ::_, _, _) => false
       })
