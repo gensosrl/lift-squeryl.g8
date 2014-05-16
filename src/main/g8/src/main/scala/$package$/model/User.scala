@@ -13,6 +13,7 @@ import util.FieldContainer
 import net.liftmodules.squerylauth._
 import net.liftmodules.squerylauth.field._
 import net.liftmodules.squerylauth.model._
+import net.liftmodules.squerylauth.lib._
 import net.liftweb.record.MetaRecord
 import net.liftweb.util.Helpers._
 import org.squeryl.Table
