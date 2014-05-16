@@ -29,7 +29,7 @@ object SquerylConfig extends Factory with Loggable {
   }
 
   def init = {
-    initH2(DbSchema)    
+    initH2(() => DbSchema)    
   }
 }
 

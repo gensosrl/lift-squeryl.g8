@@ -70,7 +70,6 @@ class User private () extends ProtoAuthUser[User] {
     def allFields = List(username, email)
   }
 
-  def whenCreated: DateTime = new DateTime(id.get.getTime)
 }
 
 object User extends User with ProtoAuthUserMeta[User]  with Loggable {
@@ -132,7 +131,7 @@ object User extends User with ProtoAuthUserMeta[User]  with Loggable {
   def sendLoginToken(user: User): Unit = {
     import net.liftweb.util.Mailer._
 
-    val token = LoginToken.createForUserId(user.id.get)
+    val token = LoginToken.createForUserId(user.id)
 
     val msgTxt =
       """
