@@ -82,6 +82,7 @@ object User extends User with MetaRecord[User] with ProtoAuthUserMeta[User] with
     asLong(id) match {
       case Full(i) => find(i)
       case _ => Empty
+    }
 
   override def onLogIn: List[User => Unit] = List(user => User.loginCredentials.remove())
   override def onLogOut: List[Box[User] => Unit] = List(
