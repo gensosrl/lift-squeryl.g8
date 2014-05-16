@@ -160,7 +160,7 @@ object User extends User with MetaRecord[User] with ProtoAuthUserMeta[User] with
   /*
    * ExtSession
    */
-  def createExtSession(uid: ObjectId) = ExtSession.createExtSession(uid)
+  def createExtSession(uid: Long) = ExtSession.createExtSession(uid)
 
   /*
   * Test for active ExtSession.

@@ -122,7 +122,7 @@ object RegisterScreen extends BaseRegisterScreen with BasePasswordScreen {
     user.password.hashIt
     user.save
     User.logUserIn(user, true)
-    if (rememberMe) User.createExtSession(user.id.get)
+    if (rememberMe) User.createExtSession(user.id)
     S.notice("Thanks for signing up!")
   }
 }

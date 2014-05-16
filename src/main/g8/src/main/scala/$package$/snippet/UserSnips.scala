@@ -83,7 +83,7 @@ object ProfileLocUser extends UserSnippet {
 
   def profile(html: NodeSeq): NodeSeq = serve(html) { user =>
     val editLink: NodeSeq =
-      if (User.currentUser.filter(_.id.get == user.id.get).isDefined)
+      if (User.currentUser.filter(_.id == user.id).isDefined)
         <a href={Site.editProfile.url} class="btn btn-info"><i class="icon-edit icon-white"></i> Edit Your Profile</a>
       else
         NodeSeq.Empty
@@ -121,7 +121,7 @@ object UserLogin extends Loggable {
             case Full(user) if (user.password.isMatch(password)) =>
               logger.debug("pwd matched")
               User.logUserIn(user, true)
-              if (remember) User.createExtSession(user.id.get)
+              if (remember) User.createExtSession(user.id)
               else ExtSession.deleteExtCookie()
               RedirectTo(LoginRedirect.openOr(Site.home.url))
             case _ =>
