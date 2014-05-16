@@ -15,6 +15,7 @@ import net.liftmodules.squerylauth.field._
 import net.liftmodules.squerylauth.model._
 import net.liftweb.record.MetaRecord
 import net.liftweb.util.Helpers._
+import org.squeryl.Table
 
 class User private () extends ProtoAuthUser[User] {
   def meta = User
