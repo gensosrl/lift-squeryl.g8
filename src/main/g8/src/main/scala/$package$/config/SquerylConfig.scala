@@ -24,7 +24,7 @@ object SquerylConfig extends Factory with Loggable {
       new H2Adapter))    
     inTransaction {
       try {
-        schema().create
+        schema.map(s => s.create)
       } catch {
         case e: Throwable => e.printStackTrace()
         throw e;
