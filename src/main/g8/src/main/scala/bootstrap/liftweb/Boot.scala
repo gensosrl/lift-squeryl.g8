@@ -14,6 +14,7 @@ import $package$.model.{SystemUser, User}
 
 import net.liftmodules.extras.{Gravatar, LiftExtras}
 import net.liftmodules.squerylauth.SquerylAuth
+import net.liftweb.squerylrecord.RecordTypeMode._
 
 /**
  * A class that's instantiated early and run.  It allows the application

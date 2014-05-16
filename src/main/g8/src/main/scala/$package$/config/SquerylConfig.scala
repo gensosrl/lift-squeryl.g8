@@ -10,6 +10,7 @@ import net.liftweb.squerylrecord.RecordTypeMode
 import RecordTypeMode._
 import java.sql.DriverManager
 import net.liftmodules.squerylauth.model.DbSchema
+import org.squeryl.Schema
 
 object SquerylConfig extends Factory with Loggable {
 
@@ -28,7 +29,7 @@ object SquerylConfig extends Factory with Loggable {
   }
 
   def init = {
-    initH2(schema)    
+    initH2(DbSchema)    
   }
 }
 

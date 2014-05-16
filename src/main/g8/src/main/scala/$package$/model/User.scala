@@ -14,7 +14,7 @@ import net.liftmodules.squerylauth._
 import net.liftmodules.squerylauth.field._
 import net.liftmodules.squerylauth.model._
 
-class User private () extends ProtoAuthUser[User] with ObjectIdPk[User] {
+class User private () extends ProtoAuthUser[User] {
   def meta = User
 
   val idField = new LongField(this)
