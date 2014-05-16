@@ -10,7 +10,7 @@ import net.liftweb.squerylrecord.RecordTypeMode
 import RecordTypeMode._
 import java.sql.DriverManager
 import net.liftmodules.squerylauth.model.DbSchema
-import org.squeryl.Schema
+import org.squeryl.{Schema, Table}
 import model._
 
 object SquerylConfig extends Factory with Loggable {
