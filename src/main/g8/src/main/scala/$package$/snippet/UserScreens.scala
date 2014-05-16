@@ -29,7 +29,7 @@ object AccountScreen extends BaseCurrentUserScreen {
   addFields(() => userVar.is.accountScreenFields)
 
   def finish() {
-    userVar.is.save
+    User.save(userVar.get)
     S.notice("Account settings saved")
   }
 }
@@ -63,7 +63,7 @@ object PasswordScreen extends BaseCurrentUserScreen with BasePasswordScreen {
   def finish() {
     userVar.is.password(passwordField.is)
     userVar.is.password.hashIt
-    userVar.is.save
+    User.save(userVar.get)
     S.notice("New password saved")
   }
 }
@@ -90,7 +90,7 @@ object ProfileScreen extends BaseCurrentUserScreen {
   addFields(() => userVar.is.profileScreenFields)
 
   def finish() {
-    userVar.is.save
+    User.save(userVar.get)
     S.notice("Profile settings saved")
   }
 }
@@ -120,7 +120,7 @@ object RegisterScreen extends BaseRegisterScreen with BasePasswordScreen {
     val user = userVar.is
     user.password(passwordField.is)
     user.password.hashIt
-    user.save
+    User.save(user)
     User.logUserIn(user, true)
     if (rememberMe) User.createExtSession(user.id)
     S.notice("Thanks for signing up!")

@@ -115,7 +115,7 @@ object User extends User with MetaRecord[User] with ProtoAuthUserMeta[User] with
       case Full(at) => find(at.userId.get).map(user => {
         if (user.validate.length == 0) {
           user.verified(true)
-          user.save
+          User.save(user)
           logUserIn(user)
           at.delete_!
           RedirectResponse(loginTokenAfterUrl)
@@ -193,7 +193,7 @@ object SystemUser {
   private val email = "$admin_email$"
 
   lazy val user: User = User.find("username", username) openOr {
-    User.createRecord
+    User.save(User.createRecord
       .name("$name$")
       .username(username)
       .email(email)
@@ -201,7 +201,7 @@ object SystemUser {
       .timezone("America/Chicago")
       .verified(true)
       .password("$admin_password$", true)
-      .save
+    )
   }
 }
 
