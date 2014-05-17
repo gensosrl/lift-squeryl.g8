@@ -114,7 +114,7 @@ object User extends User with MetaRecord[User] with ProtoAuthUserMeta[User] with
   override def handleLoginToken: Box[LiftResponse] = {
     val resp = S.param("token").flatMap(LoginToken.findByStringId) match {
       case Full(at) if (at.expires.isExpired) => {
-        at.delete_!
+        LoginToken.delete_!(at)
         RedirectWithState(indexUrl, RedirectState(() => { S.error("Login token has expired") }))
       }
       case Full(at) => find(at.userId.get).map(user => {
@@ -122,7 +122,7 @@ object User extends User with MetaRecord[User] with ProtoAuthUserMeta[User] with
           user.verified(true)
           User.save(user)
           logUserIn(user)
-          at.delete_!
+          LoginToken.delete_!(at)
           RedirectResponse(loginTokenAfterUrl)
         }
         else {
