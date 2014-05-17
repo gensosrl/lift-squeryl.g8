@@ -84,6 +84,8 @@ object User extends User with MetaRecord[User] with ProtoAuthUserMeta[User] with
     UserSchema.users.where(user => user.username === in).headOption
 
   def find(id: Long): Box[User] = UserSchema.users.lookup(id)
+
+  def save(inst: User) = UserSchema.insertOrUpdate(inst)
  
   def findByStringId(id: String): Box[User] =
     asLong(id) match {
@@ -209,8 +211,6 @@ object SystemUser {
     )
   }
   
-  def save(inst: User) = UserSchema.insertOrUpdate(inst)
-
 }
 
 object UserSchema extends AuthUserSchema[User] {
