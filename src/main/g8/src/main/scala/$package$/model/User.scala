@@ -126,7 +126,7 @@ object User extends User with MetaRecord[User] with ProtoAuthUserMeta[User] with
           RedirectResponse(loginTokenAfterUrl)
         }
         else {
-          at.delete_!
+          LoginToken.delete_!(at)
           regUser(user)
           RedirectWithState(registerUrl, RedirectState(() => { S.notice("Please complete the registration form") }))
         }
@@ -197,7 +197,7 @@ object SystemUser {
   private val username = "$name;format="norm"$"
   private val email = "$admin_email$"
 
-  lazy val user: User = User.find("username", username) openOr {
+  lazy val user: User = User.findByUsername(username) openOr {
     User.save(User.createRecord
       .name("$name$")
       .username(username)
