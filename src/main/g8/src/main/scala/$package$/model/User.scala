@@ -24,8 +24,6 @@ class User private () extends ProtoAuthUser[User] {
 
   val idField = new LongField(this)
 
-  def userIdAsString: String = id.toString
-
   val locale = new LocaleField(this) {
     override def displayName = "Locale"
     override def defaultValue = "en_US"
@@ -83,7 +81,10 @@ object User extends User with MetaRecord[User] with ProtoAuthUserMeta[User] with
     UserSchema.users.where(user => user.email === in).headOption
   def findByUsername(in: String): Box[User] =
     UserSchema.users.where(user => user.username === in).headOption
-  def find(id: Long): Box[User] = UserSchema.users.lookup(id)
+
+  def findAllByEmail(email: String): List[code.model.User] = UserSchema.users.where(user.email === email).toList
+
+  def findAllByUsername(username: String): List[code.model.User] = UserSchema.users.where(user.username === username).toList
 
   def findByStringId(id: String): Box[User] =
     asLong(id) match {
