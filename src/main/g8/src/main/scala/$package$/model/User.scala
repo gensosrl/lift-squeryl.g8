@@ -85,7 +85,7 @@ object User extends User with MetaRecord[User] with ProtoAuthUserMeta[User] with
 
   def find(id: Long): Box[User] = UserSchema.users.lookup(id)
 
-  def save(inst: User) = UserSchema.insertOrUpdate(inst)
+  def save(inst: User) = UserSchema.users.insertOrUpdate(inst)
  
   def findByStringId(id: String): Box[User] =
     asLong(id) match {
