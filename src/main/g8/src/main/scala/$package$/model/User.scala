@@ -208,6 +208,9 @@ object SystemUser {
       .password("$admin_password$", true)
     )
   }
+  
+  def save(inst: User) = UserSchema.insertOrUpdate(inst)
+
 }
 
 object UserSchema extends AuthUserSchema[User] {
