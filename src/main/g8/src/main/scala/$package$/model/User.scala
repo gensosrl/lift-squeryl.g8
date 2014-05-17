@@ -79,8 +79,10 @@ class User private () extends ProtoAuthUser[User] {
 
 object User extends User with MetaRecord[User] with ProtoAuthUserMeta[User] with SquerylMetaRecord[Long, User] with Loggable {
 
-  //def findByEmail(in: String): Box[User] = find(email.name, in)
-  //def findByUsername(in: String): Box[User] = find(username.name, in)
+  def findByEmail(in: String): Box[User] =
+    UserSchema.users.where(user => user.email === in).headOption
+  def findByUsername(in: String): Box[User] =
+    UserSchema.users.where(user => user.username === in).headOption
   def find(id: Long): Box[User] = UserSchema.users.lookup(id)
 
   def findByStringId(id: String): Box[User] =
