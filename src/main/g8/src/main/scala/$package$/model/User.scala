@@ -73,9 +73,9 @@ class User private () extends ProtoAuthUser[User] {
     def allFields = List(username, email)
   }
 
-  def findAllByUsername(username: String): List[SimpleUser] = meta.findAllByUsername(username)
+  def findAllByUsername(username: String): List[User] = meta.findAllByUsername(username)
 
-  def findAllByEmail(email: String): List[SimpleUser] = meta.findAllByEmail(email)
+  def findAllByEmail(email: String): List[User] = meta.findAllByEmail(email)
 
 }
 
@@ -192,9 +192,9 @@ object User extends User with MetaRecord[User] with ProtoAuthUserMeta[User] with
     }
   }
   
-  override def findAllByUsername(username: String): List[SimpleUser] = SimpleUserSchema.users.where(_.username === username).toList
+  override def findAllByUsername(username: String): List[User] = UserSchema.users.where(_.username === username).toList
   
-  override def findAllByEmail(email: String): List[SimpleUser] = SimpleUserSchema.users.where(_.email === email).toList
+  override def findAllByEmail(email: String): List[User] = UserSchema.users.where(_.email === email).toList
 
   // used during login process
   object loginCredentials extends SessionVar[LoginCredentials](LoginCredentials(""))
