@@ -15,7 +15,7 @@ Install SBT 0.13 - [Setup](http://www.scala-sbt.org/release/docs/Getting-Started
 
 In a shell, run the following in the parent directory of the new project:
 
-    g8 jgenso/lift-squeryl
+    g8 gensosrl/lift-squeryl
     cd <project-name>
 
 Please see the README file in your new project for further instructions on configuring and running your app.
