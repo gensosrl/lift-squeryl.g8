@@ -81,11 +81,13 @@ class User private () extends ProtoAuthUser[User] {
 
 object User extends User with MetaRecord[User] with ProtoAuthUserMeta[User] with Loggable {
 
-  def findByEmail(in: String): Box[User] =
+  def findByEmail(in: String): Box[User] = inTransaction {
     UserSchema.users.where(user => user.email === in).headOption
+  }
   
-  def findByUsername(in: String): Box[User] =
+  def findByUsername(in: String): Box[User] = inTransaction {
     UserSchema.users.where(user => user.username === in).headOption
+  }
 
   def find(id: Long): Box[User] = UserSchema.users.lookup(id)
 

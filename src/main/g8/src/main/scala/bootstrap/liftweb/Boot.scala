@@ -41,12 +41,14 @@ class Boot extends Loggable {
         }
       }
     })
-    
-    SquerylAuth.authUserMeta.default.set(User)
-    SquerylAuth.loginTokenAfterUrl.default.set(Site.password.url)
-    SquerylAuth.siteName.default.set("$name$")
-    SquerylAuth.systemEmail.default.set(SystemUser.user.email.get)
-    SquerylAuth.systemUsername.default.set(SystemUser.user.name.get)
+   
+    inTransaction {
+      SquerylAuth.authUserMeta.default.set(User)
+      SquerylAuth.loginTokenAfterUrl.default.set(Site.password.url)
+      SquerylAuth.siteName.default.set("$name$")
+      SquerylAuth.systemEmail.default.set(SystemUser.user.email.get)
+      SquerylAuth.systemUsername.default.set(SystemUser.user.name.get)
+    }
 
     // For S.loggedIn_? and TestCond.loggedIn/Out builtin snippet
     LiftRules.loggedInTest = Full(() => User.isLoggedIn)
