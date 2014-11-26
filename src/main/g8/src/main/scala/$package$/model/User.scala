@@ -227,6 +227,6 @@ object SystemUser {
 
 object UserSchema extends AuthUserSchema[User] {
   val users: Table[User] = table("users")
-  val rolesToUsers = manyToManyRelation(SquerylAuthSchema.roles, users, "role_user").via[RoleUser]((r,u,ru) => (ru.userId === u.id, r.id === ru.roleId))
+  val rolesToUsers = manyToManyRelation(DbSchema.roles, users, "role_user").via[RoleUser]((r,u,ru) => (ru.userId === u.id, r.id === ru.roleId))
 }
 
