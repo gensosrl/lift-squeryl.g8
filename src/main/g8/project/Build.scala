@@ -16,7 +16,9 @@ object LiftProjectBuild extends Build {
         "org.eclipse.jetty" % "jetty-webapp" % Ver.jetty % "container",
         "ch.qos.logback" % "logback-classic" % "1.0.13" % "compile",
         "org.scalatest" %% "scalatest" % "1.9.2" % "test",
-        "com.h2database" % "h2" % "1.3.167"
+        "com.h2database" % "h2" % "1.3.167",
+        "postgresql" % "postgresql"       % "9.1-901.jdbc4",
+        "mysql" % "mysql-connector-java" % "5.1.6" 
       )
     )
 }
