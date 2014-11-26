@@ -57,7 +57,9 @@ class User private () extends ProtoAuthUser[User] {
       valMaxLen(160, "Bio must be 160 characters or less") _ ::
       super.validations
   }
-
+  
+  lazy val roles = UserSchema.rolesToUsers.right(this)
+  
   /*
    * FieldContainers for various LiftScreeens.
    */
@@ -225,5 +227,6 @@ object SystemUser {
 
 object UserSchema extends AuthUserSchema[User] {
   val users: Table[User] = table("users")
+  val rolesToUsers = manyToManyRelation(SquerylAuthSchema.roles, users, "role_user").via[RoleUser]((r,u,ru) => (ru.userId === u.id, r.id === ru.roleId))
 }
 
