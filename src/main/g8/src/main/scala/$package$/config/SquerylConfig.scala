@@ -15,7 +15,7 @@ import model._
 
 object SquerylConfig extends Factory with Loggable {
 
-  lazy val databaseProvider = "$db_provider"
+  lazy val databaseProvider = $db_provider
 
   private def initH2(schema: () => Schema*) {
     Class.forName("org.h2.Driver")     
