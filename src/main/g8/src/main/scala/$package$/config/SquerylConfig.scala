@@ -9,9 +9,9 @@ import util.Props
 import net.liftweb.squerylrecord.RecordTypeMode
 import RecordTypeMode._
 import java.sql.DriverManager
-import net.liftmodules.squerylauth.model.DbSchema
 import org.squeryl.{Schema, Table}
 import model._
+import net.liftmodules.squerylauth.model.SquerylAuthSchema
 
 object SquerylConfig extends Factory with Loggable {
 
@@ -89,7 +89,7 @@ object SquerylConfig extends Factory with Loggable {
       case "mysql" =>
         initMysql(() => SquerylAuthSchema, () => DbSchema)    
       case "postgresql" =>
-        initPostgreSql(() => SquerylAuthchema, () => DbSchema)    
+        initPostgreSql(() => SquerylAuthSchema, () => DbSchema)    
       case _ =>
         initH2(() => SquerylAuthSchema, () => DbSchema)    
     }
