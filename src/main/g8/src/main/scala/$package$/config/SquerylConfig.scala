@@ -15,7 +15,7 @@ import model._
 
 object SquerylConfig extends Factory with Loggable {
 
-  lazy val databaseProvider = "$database_provider"
+  lazy val databaseProvider = "$db_provider"
 
   private def initH2(schema: () => Schema*) {
     Class.forName("org.h2.Driver")     
@@ -23,7 +23,7 @@ object SquerylConfig extends Factory with Loggable {
     import net.liftweb.squerylrecord.SquerylRecord
     import org.squeryl.Session
     SquerylRecord.initWithSquerylSession(Session.create(
-      DriverManager.getConnection(Props.get("db.url", "jdbc:h2:mem:dbname;DB_CLOSE_DELAY=-1"), Props.get("db.user", "$db_user"), Props.get("db.password", "$db_password")),
+      DriverManager.getConnection(Props.get("db.url", "jdbc:h2:mem:$db_name;DB_CLOSE_DELAY=-1"), Props.get("db.user", "$db_user"), Props.get("db.password", "$db_password")),
       new H2Adapter))    
     inTransaction {
       try {
@@ -90,6 +90,8 @@ object SquerylConfig extends Factory with Loggable {
         initMysql(() => SquerylAuthSchema, () => DbSchema)    
       case "postgresql" =>
         initPostgreSql(() => SquerylAuthchema, () => DbSchema)    
+      case _ =>
+        initH2(() => SquerylAuthSchema, () => DbSchema)    
     }
   }
 }
