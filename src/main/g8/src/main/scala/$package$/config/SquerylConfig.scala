@@ -15,7 +15,7 @@ import model._
 
 object SquerylConfig extends Factory with Loggable {
 
-  lazy val databaseProvider = $db_provider
+  lazy val databaseProvider = "$db_provider$"
 
   private def initH2(schema: () => Schema*) {
     Class.forName("org.h2.Driver")     
@@ -23,7 +23,7 @@ object SquerylConfig extends Factory with Loggable {
     import net.liftweb.squerylrecord.SquerylRecord
     import org.squeryl.Session
     SquerylRecord.initWithSquerylSession(Session.create(
-      DriverManager.getConnection(Props.get("db.url", "jdbc:h2:mem:$db_name;DB_CLOSE_DELAY=-1"), Props.get("db.user", "$db_user"), Props.get("db.password", "$db_password")),
+      DriverManager.getConnection(Props.get("db.url", "jdbc:h2:mem:$db_name$;DB_CLOSE_DELAY=-1"), Props.get("db.user", "$db_user$"), Props.get("db.password", "$db_password$")),
       new H2Adapter))    
     inTransaction {
       try {
@@ -44,7 +44,7 @@ object SquerylConfig extends Factory with Loggable {
     import net.liftweb.squerylrecord.SquerylRecord
     import org.squeryl.Session
     SquerylRecord.initWithSquerylSession(Session.create(
-      DriverManager.getConnection(Props.get("db.url", "jdbc:mysql://$db_host/$db_name"), Props.get("db.user", "$db_user"), Props.get("db.password", "$db_password")),
+      DriverManager.getConnection(Props.get("db.url", "jdbc:mysql://$db_host$/$db_name$"), Props.get("db.user", "$db_user$"), Props.get("db.password", "$db_password$")),
       new MySQLInnoDBAdapter))    
     inTransaction {
       try {
@@ -65,7 +65,7 @@ object SquerylConfig extends Factory with Loggable {
     import net.liftweb.squerylrecord.SquerylRecord
     import org.squeryl.Session
     SquerylRecord.initWithSquerylSession(Session.create(
-      DriverManager.getConnection(Props.get("db.url", "jdbc:postgresql://$db_host/$db_name"), Props.get("db.user", "$db_user"), Props.get("db.password", "$db_password")),
+      DriverManager.getConnection(Props.get("db.url", "jdbc:postgresql://$db_host$/$db_name$"), Props.get("db.user", "$db_user$"), Props.get("db.password", "$db_password$")),
       new PostgreSqlAdapter))    
     inTransaction {
       try {
