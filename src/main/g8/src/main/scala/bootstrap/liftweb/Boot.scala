@@ -24,8 +24,7 @@ class Boot extends Loggable {
   def boot {
     logger.info("Run Mode: "+Props.mode.toString)
 
-    // init auth-squeryl
-    SquerylConfig.init
+    
     S.addAround(new LoanWrapper {
       override def apply[T](f: => T): T = {
         val result = inTransaction {
@@ -49,6 +48,9 @@ class Boot extends Loggable {
       SquerylAuth.systemEmail.default.set(SystemUser.user.email.get)
       SquerylAuth.systemUsername.default.set(SystemUser.user.name.get)
     }
+
+    // init auth-squeryl
+    SquerylConfig.init
 
     // For S.loggedIn_? and TestCond.loggedIn/Out builtin snippet
     LiftRules.loggedInTest = Full(() => User.isLoggedIn)
