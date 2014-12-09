@@ -23,6 +23,14 @@ import net.liftweb.squerylrecord.RecordTypeMode._
 class Boot extends Loggable {
   def boot {
     logger.info("Run Mode: "+Props.mode.toString)
+    
+    SquerylAuth.authUserMeta.default.set(User)
+    SquerylAuth.loginTokenAfterUrl.default.set(Site.password.url)
+    SquerylAuth.siteName.default.set("$name$")
+
+    // init auth-squeryl
+    SquerylConfig.init
+
 
     
     S.addAround(new LoanWrapper {
@@ -42,16 +50,10 @@ class Boot extends Loggable {
     })
    
     inTransaction {
-      SquerylAuth.authUserMeta.default.set(User)
-      SquerylAuth.loginTokenAfterUrl.default.set(Site.password.url)
-      SquerylAuth.siteName.default.set("$name$")
       SquerylAuth.systemEmail.default.set(SystemUser.user.email.get)
       SquerylAuth.systemUsername.default.set(SystemUser.user.name.get)
     }
-
-    // init auth-squeryl
-    SquerylConfig.init
-
+    
     // For S.loggedIn_? and TestCond.loggedIn/Out builtin snippet
     LiftRules.loggedInTest = Full(() => User.isLoggedIn)
 
