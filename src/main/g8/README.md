@@ -49,5 +49,5 @@ User Model
 This app implements the [Squerylauth Lift Module](https://github.com/jgenso/squeryl-auth-module).
 The registration and login implementation is based on
 [research done by Google](http://sites.google.com/site/oauthgoog/UXFedLogin) a few years ago
-and is similar to Amazon.com and Buy.com. It's different than what most people seem to expect,
+and is similar to Amazon.com and Buy.com, also it is based on [Lift MongoAuth Module](https://github.com/eltimn/lift-mongoauth) and [Lift MapperAuth Module](https://github.com/liftmodules/mapperauth). It's different than what most people seem to expect,
 but it can easily be changed to suit your needs since most of the code is part of your project.
